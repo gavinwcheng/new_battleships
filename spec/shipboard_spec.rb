@@ -2,28 +2,31 @@ require 'shipboard'
 
 describe ShipBoard do
 
-  it { is_expected.to respond_to(:place_cell).with(3).arguments }
-  it { is_expected.to respond_to(:cell_content).with(2).arguments }
-  it { is_expected.to respond_to(:list_of_ships) }
+  context 'when placing a ship' do
 
-  it 'can place a ship in a cell' do
-    subject.place_cell(:ship, 0, 0)
-    expect(subject.cell_content(0, 0)).to eq :ship
-  end
+    it 'places ship from size, start co-ord and direction' do
+      ship = {name: :ship_1, size: 5}
+      x = 0
+      y = 0
+      direction = :E
+      subject.place_ship(ship, x, y, direction)
+      expect(subject.list_of_ships).to include(ship[:name])
+    end
 
-  it 'adds a placed ship to the list of ships' do
-    subject.place_cell(:ship, 0, 0)
-    expect(subject.list_of_ships).to include(:ship)
-  end
+    it 'raises error if the ship lies out of bounds' do
+      ship = {name: :ship_1, size: 5}
+      x = 8
+      y = 8
+      direction = :E
+      expect{subject.place_ship(ship, x, y, direction)}.to raise_error('ship out of bounds')
+    end
 
-  it 'places ship from size, start co-ord and direction' do
-    ship = {name: :ship_1, size: 5}
-    x = 0
-    y = 0
-    direction = :E
-
-    subject.place_ship(ship, x, y, direction)
-    expect(subject.list_of_ships).to include(ship[:name])
+    it 'raises error if ship overlaps another' do
+      ship1 = {name: :ship_1, size: 5}
+      ship2 = {name: :ship_2, size: 3}
+      subject.place_ship(ship1, 0, 0, :E)
+      expect{subject.place_ship(ship2, 3, 2, :N)}.to raise_error('ship overlap')
+    end
 
   end
 
