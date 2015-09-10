@@ -30,4 +30,48 @@ describe ShipBoard do
 
   end
 
+  context 'when attacking' do
+
+      before :each  do
+
+      end
+
+      it 'can report miss' do
+        ship1={name: :ship_1, size: 1}
+        ship2={name: :ship_2, size: 2}
+        subject.place_ship(ship1, 0, 0, :E)
+        subject.place_ship(ship2, 1, 1, :E)
+        expect(subject.bomb_cell(1,0)).to eq(:miss)
+      end
+
+      it 'can report hit' do
+        ship1={name: :ship_1, size: 1}
+        ship2={name: :ship_2, size: 2}
+        subject.place_ship(ship1, 0, 0, :E)
+        subject.place_ship(ship2, 1, 1, :E)
+        expect(subject.bomb_cell(1,1)).to eq(:hit)
+      end
+
+      it 'can report sink' do
+        ship1={name: :ship_1, size: 1}
+        ship2={name: :ship_2, size: 2}
+        subject.place_ship(ship1, 0, 0, :E)
+        subject.place_ship(ship2, 1, 1, :E)
+        subject.bomb_cell(1,1)
+        expect(subject.bomb_cell(2,1)).to eq(:sunk)
+      end
+
+      it 'can report win' do
+        ship1={name: :ship_1, size: 1}
+        ship2={name: :ship_2, size: 2}
+        subject.place_ship(ship1, 0, 0, :E)
+        subject.place_ship(ship2, 1, 1, :E)
+        subject.bomb_cell(2,1)
+        subject.bomb_cell(1,1)
+        expect(subject.bomb_cell(0,0)).to eq(:win)
+      end
+
+  end
+
+
 end

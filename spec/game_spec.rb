@@ -15,4 +15,9 @@ describe Game do
     expect(winner == :player1 || winner == :player2).to be_truthy
   end
 
+  xit 'can report sinkings' do
+
+
+  end
+
 end

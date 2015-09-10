@@ -1,5 +1,5 @@
 class ShipBoard
-
+  attr_reader :cells
   def initialize
     @cells = Array.new(10) {Array.new(10)}
   end
@@ -25,9 +25,28 @@ class ShipBoard
 
   end
 
+  def bomb_cell(x,y)
+    return :miss if cell_content(x,y)==nil
+    old_ships = list_of_ships.dup
+    place_cell(nil, x, y)
+    return :win if list_of_ships==[]
+    old_ships==list_of_ships ? :hit : :sunk
+  end
+
+
+
+  def print_board
+    for i in 0..9
+      puts cells.transpose[i].inspect
+    end
+  end
+
   def list_of_ships
     @cells.flatten.compact.uniq
   end
+
+
+
 
 private
 
@@ -46,4 +65,5 @@ private
   def place_cell(ship, x, y)
     @cells[x][y] = ship
   end
+
 end

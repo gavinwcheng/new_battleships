@@ -13,7 +13,8 @@ class Game
       print "Player 1: enter bomb's y coordinate: "
       y = gets.chomp.to_i
 
-      @shipboard2.place_ship(nil, x, y)
+      
+      @shipboard2.place_cell(nil, x, y)
 
       return :player1 if @shipboard2.list_of_ships.empty?
 
