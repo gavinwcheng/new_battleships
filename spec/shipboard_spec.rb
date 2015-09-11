@@ -18,14 +18,14 @@ describe ShipBoard do
       x = 8
       y = 8
       direction = :E
-      expect{subject.place_ship(ship, x, y, direction)}.to raise_error('ship out of bounds')
+      expect{subject.place_ship(ship, x, y, direction)}.to raise_error('Ship out of bounds!')
     end
 
     it 'raises error if ship overlaps another' do
       ship1 = {name: :ship_1, size: 5}
       ship2 = {name: :ship_2, size: 3}
       subject.place_ship(ship1, 0, 0, :E)
-      expect{subject.place_ship(ship2, 3, 2, :N)}.to raise_error('ship overlap')
+      expect{subject.place_ship(ship2, 3, 2, :N)}.to raise_error('That ship overlaps!')
     end
 
   end
