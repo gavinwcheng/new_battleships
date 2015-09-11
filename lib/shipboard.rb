@@ -9,7 +9,7 @@ class ShipBoard
     boat_extension = []
 
     ship[:size].times do
-      fail 'ship out of bounds' unless in_bounds?(x,y)
+      fail 'Ship out of bounds!' unless in_bounds?(x,y)
       boat_extension << [x, y]
       step ={ N: ->(x,y){[x, y-=1]},
               S: ->(x,y){[x, y+=1]},
@@ -19,7 +19,7 @@ class ShipBoard
       x,y = new_cell[0],new_cell[1]
     end
 
-    fail 'ship overlap' unless no_overlap?(boat_extension)
+    fail 'That ship overlaps!' unless no_overlap?(boat_extension)
 
     boat_extension.each{|a| place_cell(ship[:name], a[0], a[1])}
 
