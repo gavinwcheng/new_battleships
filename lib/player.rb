@@ -7,6 +7,7 @@ class Player
   end
 
   def fire(opponent,x,y)
+    opponent.take_fire(x,y)
   end
 
   def take_fire(x,y)
